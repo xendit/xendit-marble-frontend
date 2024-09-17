@@ -51,7 +51,7 @@ paths:
       tags:
         - Authorization
       summary: Get an access token
-      description: You need to suply either "X-API-Key" or “Authorization" header
+      description: You need to suply either "X-API-Key" or "Authorization" header
       operationId: postToken
       security: []
       parameters:
@@ -1897,6 +1897,42 @@ paths:
                 properties:
                   data_model:
                     $ref: '#/components/schemas/DataModelDto'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+  /data-model/views:
+    post:
+      tags:
+        - Data Model
+      summary: Create a new view in the data model
+      operationId: createDataModelView
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: 'View object that needs to be added to the data model'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateViewInput'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                required:
+                  - id
+        '204':
+          description: Empty response body
         '401':
           $ref: '#/components/responses/401'
         '403':
@@ -5100,6 +5136,19 @@ components:
           type: integer
         rate_limit_duration:
           type: integer
+    CreateViewInput:
+      type: object
+      required:
+        - name
+        - description
+        - query
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        query:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

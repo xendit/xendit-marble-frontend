@@ -488,6 +488,11 @@ export type DataModelDto = {
         [key: string]: TableDto;
     };
 };
+export type CreateViewInput = {
+    name: string;
+    description: string;
+    query: string;
+};
 export type CreateTableBody = {
     name: string;
     description: string;
@@ -1880,6 +1885,32 @@ export function getDataModel(opts?: Oazapfts.RequestOpts) {
     }>("/data-model", {
         ...opts
     }));
+}
+/**
+ * Create a new view in the data model
+ */
+export function createDataModelView(createViewInput: CreateViewInput, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchJson<{
+        status: 200;
+        data: {
+            id: string;
+        };
+    } | {
+        status: 204;
+    } | {
+        status: 401;
+        data: string;
+    } | {
+        status: 403;
+        data: string;
+    } | {
+        status: 404;
+        data: string;
+    }>("/data-model/views", oazapfts.json({
+        ...opts,
+        method: "POST",
+        body: createViewInput
+    })));
 }
 /**
  * Create a new table on the data model

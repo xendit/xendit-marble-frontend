@@ -2,6 +2,7 @@ import { Callout, Page, TabLink } from '@app-builder/components';
 import { dataI18n } from '@app-builder/components/Data/data-i18n';
 import { TableDetails } from '@app-builder/components/Data/TableDetails';
 import { CreateTable } from '@app-builder/routes/ressources+/data+/createTable';
+import { CreateView } from '@app-builder/routes/ressources+/data+/createView';
 import {
   useDataModel,
   useDataModelFeatureAccess,
@@ -44,14 +45,22 @@ export default function Data() {
       <Callout className="whitespace-normal" variant="outlined">
         {t('data:your_data_callout')}
       </Callout>
-      {isCreateDataModelTableAvailable ? (
-        <CreateTable>
+      <div className="flex flex-row gap-4">
+        {isCreateDataModelTableAvailable ? (
+          <CreateTable>
+            <Button className="w-fit">
+              <Icon icon="plus" className="size-6" />
+              {t('data:create_table.title')}
+            </Button>
+          </CreateTable>
+        ) : null}
+        <CreateView>
           <Button className="w-fit">
             <Icon icon="plus" className="size-6" />
-            {t('data:create_table.title')}
+            {t('data:create_view.title')}
           </Button>
-        </CreateTable>
-      ) : null}
+        </CreateView>
+      </div>
       {dataModel.map((table) => (
         <TableDetails
           key={table.name}

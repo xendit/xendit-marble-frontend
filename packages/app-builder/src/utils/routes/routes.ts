@@ -340,6 +340,11 @@ export const routes = [
         "file": "routes/ressources+/data+/createTable.tsx"
       },
       {
+        "id": "routes/ressources+/data+/createView",
+        "path": "ressources/data/createView",
+        "file": "routes/ressources+/data+/createView.tsx"
+      },
+      {
         "id": "routes/ressources+/data+/editField",
         "path": "ressources/data/editField",
         "file": "routes/ressources+/data+/editField.tsx"
